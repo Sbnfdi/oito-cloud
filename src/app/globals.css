@@ -1,60 +1,43 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* ─── Architectural Grid Theme Tokens (vanlent.dev style) ────────── */
+/* ─── Premium SaaS Color Tokens ─────────────────────────────────── */
 @theme {
-  --color-brand-50: #ecfeff;
-  --color-brand-100: #cffafe;
-  --color-brand-200: #a5f3fc;
-  --color-brand-300: #67e8f9;
-  --color-brand-400: #22d3ee;
+  --font-family-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-brand-400: #38bdf8;
   --color-brand-500: #06b6d4;
-  --color-brand-600: #0891b2;
-  --color-brand-700: #0e7490;
-  --color-brand-800: #155e75;
-  --color-brand-900: #164e63;
+  --color-brand-600: #0284c7;
 
-  --color-violet-400: #a78bfa;
-  --color-violet-500: #8b5cf6;
-  --color-violet-600: #7c3aed;
-
-  --color-background-dark: #0a0a0c;
-  --color-background-light: #f4f4f6;
-  --color-border-grid: rgba(255, 255, 255, 0.08);
-  --color-border-grid-light: rgba(0, 0, 0, 0.08);
-
-  --font-family-display: "Montserrat", "Inter", sans-serif;
-  --font-family-mono: "IBM Plex Mono", "Geist Mono", monospace;
+  --color-accent-400: #c084fc;
+  --color-accent-500: #a855f7;
+  --color-accent-600: #9333ea;
 }
 
-/* ─── Global Variables & Theme Modes ───────────────────────────── */
 :root {
-  --bg-primary: #0a0a0c;
-  --bg-secondary: #121215;
-  --bg-card: rgba(255, 255, 255, 0.03);
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #71717a;
-  --text-quaternary: #52525b;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --grid-line-color: rgba(255, 255, 255, 0.05);
-  --corner-color: #22d3ee;
-  --grid-block-size: 60px;
+  --bg-slate-950: #030712;
+  --bg-slate-900: #0b0f19;
+  --bg-slate-850: #111827;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(56, 189, 248, 0.3);
 }
 
 [data-theme="light"] {
-  --bg-primary: #f4f4f6;
-  --bg-secondary: #e4e4e7;
-  --bg-card: rgba(0, 0, 0, 0.03);
-  --text-primary: #09090b;
-  --text-secondary: #52525b;
-  --text-tertiary: #71717a;
-  --text-quaternary: #a1a1aa;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --grid-line-color: rgba(0, 0, 0, 0.05);
-  --corner-color: #0891b2;
+  --bg-slate-950: #f8fafc;
+  --bg-slate-900: #f1f5f9;
+  --bg-slate-850: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(2, 132, 199, 0.3);
 }
 
-/* ─── Base Styles ───────────────────────────────────────────────── */
+/* ─── Global Reset & Body ───────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
@@ -62,170 +45,107 @@ html {
 
 body {
   font-family: var(--font-family-display);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-slate-950);
   color: var(--text-primary);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
 }
 
-::selection {
-  background: rgba(34, 211, 238, 0.25);
-  color: var(--text-primary);
-}
-
-/* ─── Architectural Grid Background ────────────────────────────── */
-.architectural-grid {
+/* ─── Background Ambient Mesh Glows ─────────────────────────────── */
+.bg-mesh-radial {
   background-image:
-    linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
-  background-size: var(--grid-block-size) var(--grid-block-size);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.12), transparent);
 }
 
-/* ─── Technical 4-Corner Bracket Utility ────────────────────────── */
-.corner-box {
-  position: relative;
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-.corner-box::before,
-.corner-box::after {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-color: var(--corner-color);
-  opacity: 0.7;
-  pointer-events: none;
-  transition: all 0.2s ease;
+/* ─── Premium Glassmorphic Cards ────────────────────────────────── */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
-.corner-box::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1.5px solid var(--corner-color);
-  border-left: 1.5px solid var(--corner-color);
+.glass-card-premium {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.corner-box::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1.5px solid var(--corner-color);
-  border-right: 1.5px solid var(--corner-color);
+.glass-card-premium:hover {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.5) 100%);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
 }
 
-.corner-box-inner::before,
-.corner-box-inner::after {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-color: var(--corner-color);
-  opacity: 0.7;
-  pointer-events: none;
-  transition: all 0.2s ease;
-}
-
-.corner-box-inner::before {
-  top: -1px;
-  right: -1px;
-  border-top: 1.5px solid var(--corner-color);
-  border-right: 1.5px solid var(--corner-color);
-}
-
-.corner-box-inner::after {
-  bottom: -1px;
-  left: -1px;
-  border-bottom: 1.5px solid var(--corner-color);
-  border-left: 1.5px solid var(--corner-color);
-}
-
-.corner-box:hover::before,
-.corner-box:hover::after,
-.corner-box-inner:hover::before,
-.corner-box-inner:hover::after {
-  opacity: 1;
-  width: 10px;
-  height: 10px;
-}
-
-/* ─── Technical Crosshair ───────────────────────────────────────── */
-.crosshair {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-}
-.crosshair::before {
-  content: "";
-  position: absolute;
-  top: 5.5px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--text-tertiary);
-  opacity: 0.5;
-}
-.crosshair::after {
-  content: "";
-  position: absolute;
-  left: 5.5px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: var(--text-tertiary);
-  opacity: 0.5;
-}
-
-/* ─── Glassmorphism Utilities ───────────────────────────────────── */
-.glass {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-}
-
-.glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-color);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.glass-card:hover {
-  border-color: var(--corner-color);
-}
-
-/* ─── Architectural Typography ──────────────────────────────────── */
-.tech-label {
-  font-family: var(--font-family-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-.tech-title {
-  font-family: var(--font-family-display);
-  font-weight: 200;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-/* ─── Gradient Text ─────────────────────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #22d3ee 100%);
+/* ─── Vibrant Gradient Text ─────────────────────────────────────── */
+.gradient-headline {
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ─── Scrollbar ─────────────────────────────────────────────────── */
+.gradient-accent {
+  background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glowing Action Buttons ────────────────────────────────────── */
+.btn-glow-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #9333ea 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-glow-primary:hover {
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
+  transform: scale(1.03);
+}
+
+.btn-glass-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.btn-glass-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: #030712;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--corner-color);
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
 }

@@ -13,7 +13,7 @@ const HeroCanvas = dynamic(() => import("@/components/landing/HeroCanvas"), {
 
 export default function LandingPage() {
   return (
-    <main className="relative min-h-screen grid-pattern">
+    <main className="relative min-h-screen bg-slate-950 bg-mesh-radial bg-grid-pattern text-slate-100 overflow-hidden">
       {/* GSAP choreography orchestrator */}
       <EntranceChoreography />
 
@@ -25,11 +25,8 @@ export default function LandingPage() {
         {/* 3D Canvas Background */}
         <HeroCanvas />
 
-        {/* Radial gradient overlay */}
-        <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-surface-950/50 to-surface-950 z-[1]" />
-
         {/* Text content */}
-        <div className="relative z-10">
+        <div className="relative z-10 w-full">
           <HeroText />
         </div>
       </section>

@@ -6,9 +6,13 @@ import { BRAND } from "@/lib/constants";
 
 export default function Navbar() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -17,83 +21,89 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 glass border-b border-[var(--border-color)]"
-      id="main-nav"
+      className={`fixed top-4 left-0 right-0 z-50 max-w-7xl mx-auto px-4 sm:px-6 transition-all duration-300`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
-        {/* Left: Logo & Technical Badge */}
-        <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 corner-box bg-white/5 flex items-center justify-center text-xs font-mono font-bold text-[var(--corner-color)] border border-[var(--border-color)]">
-              OITO
+      <div
+        className={`rounded-2xl px-6 h-16 flex items-center justify-between border transition-all duration-300 ${
+          scrolled
+            ? "glass-panel bg-slate-950/80 border-slate-800 shadow-2xl shadow-cyan-950/20"
+            : "bg-slate-900/40 backdrop-blur-md border-white/10"
+        }`}
+      >
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-purple-600 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-extrabold text-sm text-cyan-400">
+              O
             </div>
-            <span className="text-sm font-light tracking-[0.2em] uppercase text-[var(--text-primary)]">
+          </div>
+          <div className="flex flex-col">
+            <span className="text-lg font-extrabold tracking-tight text-white group-hover:text-cyan-300 transition-colors">
               {BRAND.name}
             </span>
-          </Link>
-          <span className="hidden sm:inline-block text-[10px] font-mono text-[var(--text-tertiary)] uppercase tracking-widest pl-3 border-l border-[var(--border-color)]">
-            ARCH.V2
-          </span>
-        </div>
-
-        {/* Center Crosshair Accent */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block">
-          <div className="crosshair" />
-        </div>
-
-        {/* Right: Nav Items & AM/PM Theme Switch */}
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              href="/features"
-              data-nav-item
-              className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
-              style={{ opacity: 0 }}
-            >
-              Features
-            </Link>
-            <Link
-              href="/pricing"
-              data-nav-item
-              className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
-              style={{ opacity: 0 }}
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/docs"
-              data-nav-item
-              className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
-              style={{ opacity: 0 }}
-            >
-              Docs
-            </Link>
-            <Link
-              href="/dashboard"
-              data-nav-item
-              className="text-xs font-mono px-3 py-1.5 corner-box bg-brand-500/10 text-brand-400 hover:bg-brand-500/20 border border-brand-500/30 transition-all uppercase tracking-wider"
-              style={{ opacity: 0 }}
-            >
-              Dashboard [→]
-            </Link>
+            <span className="text-[10px] font-mono tracking-widest text-cyan-400/80 uppercase -mt-1">
+              CLOUD PLATFORM
+            </span>
           </div>
+        </Link>
 
-          {/* AM / PM Theme Switcher (vanlent.dev aesthetic) */}
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <Link
+            href="/features"
+            className="text-slate-300 hover:text-white hover:scale-105 transition-all"
+          >
+            Features
+          </Link>
+          <Link
+            href="/pricing"
+            className="text-slate-300 hover:text-white hover:scale-105 transition-all"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="/docs"
+            className="text-slate-300 hover:text-white hover:scale-105 transition-all"
+          >
+            Docs
+          </Link>
+        </div>
+
+        {/* Action Controls & Theme Toggle */}
+        <div className="flex items-center gap-4">
           <button
             onClick={toggleTheme}
-            data-nav-item
-            className="corner-box px-3 py-1 bg-white/5 border border-[var(--border-color)] text-xs font-mono text-[var(--text-primary)] hover:border-[var(--corner-color)] transition-all flex items-center gap-1.5 cursor-pointer"
-            style={{ opacity: 0 }}
-            aria-label="Toggle AM/PM theme"
+            className="px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white hover:border-cyan-400/40 transition-all flex items-center gap-1.5 cursor-pointer"
+            aria-label="Toggle theme"
           >
-            <span className={theme === "light" ? "text-[var(--corner-color)] font-bold" : "text-[var(--text-tertiary)]"}>
-              AM
+            <span className={theme === "light" ? "text-cyan-400 font-bold" : "text-slate-400"}>
+              LIGHT
             </span>
-            <span className="text-[var(--text-tertiary)]">/</span>
-            <span className={theme === "dark" ? "text-[var(--corner-color)] font-bold" : "text-[var(--text-tertiary)]"}>
-              PM
+            <span className="text-slate-600">/</span>
+            <span className={theme === "dark" ? "text-cyan-400 font-bold" : "text-slate-400"}>
+              DARK
             </span>
           </button>
+
+          <Link
+            href="/dashboard"
+            className="btn-glow-primary px-5 py-2 text-sm flex items-center gap-2 group"
+          >
+            <span>Launch Dashboard</span>
+            <svg
+              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </nav>
