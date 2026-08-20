@@ -41,38 +41,38 @@ export default function FeatureCards() {
 const features = [
   {
     icon: "⚡",
-    title: "Instant Deployments",
+    title: "oitocloud Edge Engine",
     description:
-      "Zero-config builds, automated edge provisioning, and instant rollbacks for Next.js & static apps.",
+      "Zero-config builds, automated edge provisioning, and instant rollbacks on our high-speed global cloud network.",
   },
   {
     icon: "🌐",
-    title: "Custom Domain Routing",
+    title: "oitocloud Custom Domains",
     description:
-      "White-labeled DNS routing engine with automated SSL provisioning and CNAME record generation.",
+      "Native domain routing engine with automated SSL provisioning and instant DNS record generation.",
   },
   {
-    icon: "🔄",
-    title: "GitHub Plumbing Sync",
+    icon: "🔒",
+    title: "oitocloud Code Vault",
     description:
-      "Git Data API integration that creates private repositories and pushes batch commits seamlessly.",
+      "Private source code storage and automated versioning. Every push triggers our proprietary CI/CD pipeline.",
   },
   {
     icon: "🛡️",
-    title: "Multi-Provider Architecture",
+    title: "oitocloud Dedicated Compute",
     description:
-      "Provider-agnostic HostingAdapter pattern allowing seamless switching between Vercel and VPS Webhooks.",
+      "Scalable cloud architecture offering both shared edge routing and high-performance dedicated compute clusters.",
   },
   {
     icon: "📊",
     title: "Real-Time Telemetry",
     description:
-      "Live status indicator dots, deployment logs, and infrastructure monitoring across edge nodes.",
+      "Live status indicators, build logs, and performance metrics across oitocloud global compute nodes.",
   },
   {
     icon: "🏷️",
-    title: "White-Label System",
+    title: "White-Label Cloud System",
     description:
-      "Fully brandable PaaS dashboard architecture with customizable design systems and DNS masks.",
+      "Fully brandable platform. Custom domain routing, custom branding, and generic DNS instructions under your brand.",
   },
 ];

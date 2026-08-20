@@ -15,13 +15,13 @@ export default function PricingPage() {
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--corner-color)] inline-block px-3 py-1 bg-white/5 border border-[var(--border-color)]">
-            TRANSPARENT PRICING TIERS
+            oitocloud PRICING TIERS
           </span>
           <h1 className="text-4xl sm:text-6xl font-extralight uppercase tracking-tight text-[var(--text-primary)]">
-            Simple plans for <span className="gradient-text">every team</span>
+            Simple plans for <span className="gradient-text">every project</span>
           </h1>
           <p className="text-xs font-mono text-[var(--text-tertiary)] leading-relaxed">
-            Deploy your static sites, full-stack Next.js apps, and microservices with white-labeled DNS routing and multi-provider adapter support.
+            Deploy your static sites, full-stack Next.js apps, and microservices on oitocloud proprietary cloud mesh.
           </p>
 
           {/* Monthly / Annual Billing Toggle */}
@@ -149,10 +149,10 @@ const tiers = [
     highlight: false,
     features: [
       "Up to 3 Active Projects",
-      "Vercel Adapter Integration",
-      "Automatic GitHub Repository Sync",
-      "White-labeled DNS Records",
-      "100GB Bandwidth / month",
+      "oitocloud Edge Compute",
+      "oitocloud Code Vault",
+      "Automated Custom Domain SSL",
+      "100GB Global Bandwidth / mo",
       "Community Support",
     ],
   },
@@ -161,17 +161,17 @@ const tiers = [
     tagline: "FOR GROWING TEAMS & AGENCIES",
     priceMonthly: 29,
     priceAnnual: 23,
-    description: "Full access to VPS Webhooks, unlimited deployments, and white-label branding.",
+    description: "Full access to oitocloud Dedicated Compute, unlimited deployments, and domain routing.",
     cta: "Upgrade to Pro",
     highlight: true,
     features: [
       "Unlimited Active Projects",
-      "Vercel + Self-Hosted VPS Adapters",
-      "Custom Brand White-Labeling",
+      "oitocloud Edge + Dedicated Clusters",
+      "Custom Brand Integration",
       "Instant DNS Instruction Generator",
-      "1TB Bandwidth / month",
+      "1TB Global Bandwidth / mo",
       "Priority Email & Slack Support",
-      "Automatic SSL Provisioning",
+      "Automated SSL Provisioning",
     ],
   },
   {
@@ -179,13 +179,12 @@ const tiers = [
     tagline: "FOR HIGH-SCALE INFRASTRUCTURE",
     priceMonthly: 149,
     priceAnnual: 119,
-    description: "Dedicated cluster orchestration, custom SLAs, and custom hosting adapters.",
+    description: "Dedicated cluster orchestration, custom SLAs, and custom cloud architecture.",
     cta: "Contact Sales",
     highlight: false,
     features: [
       "Everything in Pro",
-      "Custom Hosting Adapter API",
-      "Dedicated VPS Infrastructure Mesh",
+      "Dedicated Compute Mesh Nodes",
       "99.99% Uptime Guarantee SLA",
       "Unlimited Bandwidth & Builds",
       "Dedicated 24/7 Solutions Engineer",
@@ -196,16 +195,16 @@ const tiers = [
 
 const faqs = [
   {
-    q: "How does white-labeled hosting work?",
-    a: "oitocloud generates generic A and CNAME records pointing to global edge infrastructure, allowing your clients to configure DNS without seeing third-party hosting references.",
+    q: "How does oitocloud domain routing work?",
+    a: "oitocloud generates generic A and CNAME records pointing to our global edge nodes, allowing you to connect custom domains seamlessly.",
   },
   {
-    q: "Can I deploy to my own self-hosted VPS?",
-    a: "Yes! Our VPSAdapter sends HTTP Webhook payloads to platforms like Coolify, CapRover, or custom Docker deployment servers.",
+    q: "Can I allocate dedicated cloud compute?",
+    a: "Yes! Pro and Enterprise tiers allow you to provision dedicated oitocloud compute clusters for isolated workloads.",
   },
   {
-    q: "Is there a limit on GitHub repository pushes?",
-    a: "No. GitHub operations use the official Git Data API (blobs, trees, commits) with no artificial limits on deployment frequency.",
+    q: "How is code stored in oitocloud Code Vault?",
+    a: "Your uploaded source code is stored in encrypted, versioned oitocloud storage and built automatically on our deployment pipeline.",
   },
   {
     q: "Can I change my plan anytime?",

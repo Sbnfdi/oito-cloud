@@ -23,7 +23,6 @@ export default function HeroCanvas() {
       ref={containerRef}
       className="absolute inset-0 z-0"
       id="hero-canvas"
-      style={{ opacity: 0 }} // GSAP will animate this in
     >
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}

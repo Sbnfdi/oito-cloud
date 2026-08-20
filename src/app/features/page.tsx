@@ -13,13 +13,13 @@ export default function FeaturesPage() {
         {/* Hero Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--corner-color)] inline-block px-3 py-1 bg-white/5 border border-[var(--border-color)]">
-            SYSTEM FEATURES & ARCHITECTURE
+            oitocloud SYSTEM FEATURES & ARCHITECTURE
           </span>
           <h1 className="text-4xl sm:text-6xl font-extralight uppercase tracking-tight text-[var(--text-primary)]">
             Engineered for <span className="gradient-text">maximum control</span>
           </h1>
           <p className="text-xs font-mono text-[var(--text-tertiary)] leading-relaxed">
-            Discover the technology behind oitocloud — from hardware-accelerated 3D shaders to abstract hosting adapters and Git plumbing integrations.
+            Discover the technology behind oitocloud — from hardware-accelerated 3D shaders to native edge compute and automated domain routing.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function FeaturesPage() {
               Glassmorphic <span className="gradient-text">Real-Time Control</span>
             </h2>
             <p className="text-[var(--text-tertiary)] leading-relaxed">
-              Monitor active deployments, live URL routing, build progress, and multi-provider status from a sleek dark-mode glassmorphic dashboard.
+              Monitor active deployments, live URL routing, build progress, and node health from a sleek dark-mode glassmorphic control center.
             </p>
             <div className="pt-2">
               <Link
@@ -57,13 +57,13 @@ export default function FeaturesPage() {
           </div>
         </div>
 
-        {/* Feature 2: Multi-Provider Adapters */}
+        {/* Feature 2: Proprietary Compute Engine */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center border-t border-[var(--border-color)] pt-16">
           <div className="order-2 md:order-1 corner-box glass-card p-3">
             <div className="relative w-full aspect-[16/9] overflow-hidden border border-[var(--border-color)]">
               <Image
                 src="/multi_provider.jpg"
-                alt="Multi-Provider Hosting Mesh"
+                alt="oitocloud Cloud Mesh"
                 fill
                 className="object-cover"
               />
@@ -72,28 +72,28 @@ export default function FeaturesPage() {
 
           <div className="order-1 md:order-2 space-y-4 font-mono text-xs">
             <span className="text-[10px] text-[var(--corner-color)] uppercase tracking-widest">
-              FEATURE 02 // HOSTING ADAPTERS
+              FEATURE 02 // CLOUD ENGINE
             </span>
             <h2 className="text-2xl sm:text-4xl font-extralight uppercase text-[var(--text-primary)]">
-              Vercel & <span className="gradient-text">Self-Hosted VPS</span>
+              Edge Mesh & <span className="gradient-text">Dedicated Clusters</span>
             </h2>
             <p className="text-[var(--text-tertiary)] leading-relaxed">
-              Switch hosting providers without rewriting your deployment pipeline. Use VercelAdapter for instant REST API edge hosting, or VPSAdapter for webhook triggers to Coolify, CapRover, or custom Docker servers.
+              Deploy frontend applications to oitocloud Edge Nodes for instant global response times, or allocate dedicated compute clusters for enterprise workloads.
             </p>
           </div>
         </div>
 
-        {/* Feature 3: White-Label DNS */}
+        {/* Feature 3: Native Domain Manager */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center border-t border-[var(--border-color)] pt-16">
           <div className="space-y-4 font-mono text-xs">
             <span className="text-[10px] text-[var(--corner-color)] uppercase tracking-widest">
-              FEATURE 03 // DNS MASKING
+              FEATURE 03 // DOMAIN MANAGER
             </span>
             <h2 className="text-2xl sm:text-4xl font-extralight uppercase text-[var(--text-primary)]">
-              White-Label <span className="gradient-text">Domain Routing</span>
+              Native <span className="gradient-text">Domain Routing</span>
             </h2>
             <p className="text-[var(--text-tertiary)] leading-relaxed">
-              Generate custom A and CNAME record configuration tables for your clients. Hide third-party hosting references and provide automated SSL provisioning under your brand.
+              Connect custom domains directly to your oitocloud deployments with automatic SSL certificates and clear DNS record instructions.
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export default function FeaturesPage() {
             <div className="relative w-full aspect-[16/9] overflow-hidden border border-[var(--border-color)]">
               <Image
                 src="/dns_security.jpg"
-                alt="White Label DNS Routing"
+                alt="oitocloud Domain Routing"
                 fill
                 className="object-cover"
               />

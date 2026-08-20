@@ -2,8 +2,8 @@ export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'oitocloud';
 
 export const BRAND = {
   name: 'oitocloud',
-  tagline: 'Deploy at the speed of thought.',
-  description: 'White-labeled cloud hosting, automated deployments, and domain routing — all from one platform.',
+  tagline: 'Proprietary Cloud Infrastructure & Edge Engine.',
+  description: 'Deploy web applications, APIs, and microservices on our global high-speed edge network with automated SSL and instant domain routing.',
 } as const;
 
 export const COLORS = {
@@ -18,18 +18,18 @@ export const COLORS = {
 export const DEPLOY_STEPS = [
   {
     id: 'sync',
-    label: 'Syncing GitHub',
-    description: 'Pushing your code to a private repository...',
+    label: 'Syncing Code Vault',
+    description: 'Securing your source code in oitocloud Code Vault...',
   },
   {
     id: 'provision',
-    label: 'Provisioning Server',
-    description: 'Setting up your deployment environment...',
+    label: 'Provisioning oitocloud Node',
+    description: 'Setting up dedicated edge compute environment...',
   },
   {
     id: 'deploy',
-    label: 'Deploying',
-    description: 'Building and deploying your application...',
+    label: 'Deploying to Edge',
+    description: 'Building and deploying across oitocloud global mesh...',
   },
 ] as const;
 

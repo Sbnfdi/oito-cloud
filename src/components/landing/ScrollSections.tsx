@@ -13,15 +13,15 @@ export default function ScrollSections() {
       >
         <div className="text-center px-6 max-w-3xl" data-scroll-reveal>
           <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--corner-color)] mb-4 inline-block px-3 py-1 bg-white/5 border border-[var(--border-color)]">
-            DISTRIBUTED EDGE ARCHITECTURE
+            oitocloud GLOBAL EDGE MESH
           </span>
           <h2 className="text-3xl sm:text-5xl font-extralight uppercase tracking-tight text-[var(--text-primary)] mb-6">
             From single node to{" "}
-            <span className="gradient-text">global mesh</span>
+            <span className="gradient-text">global cloud mesh</span>
           </h2>
           <p className="text-[var(--text-secondary)] text-sm font-mono leading-relaxed max-w-xl mx-auto">
-            Watch single server instances transform into a zero-latency distributed mesh.
-            Automatically routed across global edge nodes for optimal response speed.
+            Watch single deployment instances transform into a zero-latency distributed cloud mesh.
+            Automatically routed across oitocloud global edge nodes for optimal performance.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default function ScrollSections() {
               <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-              <span className="ml-2 text-[var(--text-secondary)]">oitocloud-dashboard-v2.sys</span>
+              <span className="ml-2 text-[var(--text-secondary)]">oitocloud-control-center.sys</span>
             </div>
             <span>LIVE MONITORING ENGINE</span>
           </div>
@@ -68,20 +68,20 @@ export default function ScrollSections() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div data-scroll-reveal className="space-y-6">
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--corner-color)] inline-block px-3 py-1 bg-white/5 border border-[var(--border-color)]">
-              MULTI-PROVIDER ADAPTERS
+              PROPRIETARY COMPUTE ENGINE
             </span>
             <h2 className="text-2xl sm:text-4xl font-extralight uppercase tracking-tight text-[var(--text-primary)]">
-              Deploy to Vercel or <span className="gradient-text">your own VPS</span>
+              Powered by <span className="gradient-text">oitocloud Cloud Nodes</span>
             </h2>
             <p className="text-xs font-mono text-[var(--text-tertiary)] leading-relaxed">
-              Our abstract HostingAdapter engine abstracts cloud providers away. Deploy frontend apps to Vercel REST API for edge speed, or trigger Webhooks for self-hosted Docker clusters (Coolify, CapRover, custom VPS).
+              Our cloud engine automatically provisions high-speed edge compute and dedicated clusters. Enjoy zero-configuration builds, automatic SSL, and instant global distribution.
             </p>
             <div className="pt-2 flex gap-4">
               <a
                 href="/docs"
                 className="px-5 py-2.5 corner-box bg-white/5 border border-[var(--border-color)] font-mono text-xs text-[var(--text-primary)] hover:border-[var(--corner-color)] transition-colors uppercase tracking-wider"
               >
-                Read Adapter Docs →
+                Read Architecture Docs →
               </a>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function ScrollSections() {
             <div className="relative w-full aspect-[16/9] overflow-hidden border border-[var(--border-color)]">
               <Image
                 src="/multi_provider.jpg"
-                alt="Multi Provider Hosting Architecture"
+                alt="oitocloud Infrastructure Architecture"
                 fill
                 className="object-cover"
               />
@@ -106,7 +106,7 @@ export default function ScrollSections() {
             <div className="relative w-full aspect-[16/9] overflow-hidden border border-[var(--border-color)]">
               <Image
                 src="/dns_security.jpg"
-                alt="White-Label DNS Security Routing"
+                alt="oitocloud DNS Security Routing"
                 fill
                 className="object-cover"
               />
@@ -115,20 +115,20 @@ export default function ScrollSections() {
 
           <div data-scroll-reveal className="order-1 md:order-2 space-y-6">
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--corner-color)] inline-block px-3 py-1 bg-white/5 border border-[var(--border-color)]">
-              WHITE-LABEL DNS ROUTING
+              PROPRIETARY DOMAIN ROUTING
             </span>
             <h2 className="text-2xl sm:text-4xl font-extralight uppercase tracking-tight text-[var(--text-primary)]">
-              Mask underlying <span className="gradient-text">infrastructure</span>
+              Native DNS <span className="gradient-text">Domain Manager</span>
             </h2>
             <p className="text-xs font-mono text-[var(--text-tertiary)] leading-relaxed">
-              Provide white-labeled A and CNAME record configuration instructions directly to your users. Automated SSL certificates and custom domain mapping hide backend hosting providers completely under your brand.
+              Connect custom domains directly to oitocloud edge nodes. Our automated DNS instruction generator provides clear A and CNAME records with instant SSL provisioning.
             </p>
             <div className="pt-2">
               <a
                 href="/features"
                 className="px-5 py-2.5 corner-box bg-brand-500/10 border border-brand-500/30 font-mono text-xs text-brand-400 hover:bg-brand-500/20 transition-colors uppercase tracking-wider"
               >
-                View DNS Architecture →
+                View Cloud Architecture →
               </a>
             </div>
           </div>
@@ -147,16 +147,16 @@ export default function ScrollSections() {
           <div className="crosshair bottom-3 right-3" />
 
           <h2 className="text-3xl sm:text-4xl font-extralight uppercase tracking-tight text-[var(--text-primary)] mb-4">
-            Ready to <span className="gradient-text">deploy your stack</span>?
+            Ready to <span className="gradient-text">deploy your application</span>?
           </h2>
           <p className="text-xs font-mono text-[var(--text-tertiary)] mb-8 max-w-lg mx-auto leading-relaxed">
-            Join developers building production web apps on oitocloud. Start deploying in under 60 seconds with zero credit card required.
+            Start shipping on oitocloud native cloud engine. Get your apps live in under 60 seconds with zero credit card required.
           </p>
           <a
             href="/dashboard"
             className="inline-flex px-8 py-3.5 corner-box bg-gradient-to-r from-brand-500 to-violet-500 text-white font-mono text-xs uppercase tracking-[0.15em] font-semibold hover:scale-105 transition-all duration-300"
           >
-            Launch Dashboard Now [→]
+            Launch oitocloud Dashboard [→]
           </a>
         </div>
       </section>
