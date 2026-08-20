@@ -7,26 +7,31 @@ export default function FeatureCards() {
         <div
           key={feature.title}
           data-scroll-reveal
-          className="glass-card rounded-2xl p-8 group hover:scale-[1.02] transition-transform duration-300"
-          style={{ transitionDelay: `${i * 80}ms` }}
+          className="glass-card corner-box rounded-none p-8 group relative"
+          style={{ transitionDelay: `${i * 60}ms` }}
         >
+          {/* Top-right index counter */}
+          <div className="absolute top-4 right-4 font-mono text-[10px] text-[var(--text-tertiary)]">
+            0{i + 1} // 06
+          </div>
+
           {/* Icon */}
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500/20 to-violet-500/20 flex items-center justify-center mb-5 group-hover:shadow-lg group-hover:shadow-brand-500/10 transition-shadow duration-300">
-            <span className="text-2xl">{feature.icon}</span>
+          <div className="w-10 h-10 rounded-none bg-white/5 border border-[var(--border-color)] flex items-center justify-center mb-6 text-xl">
+            {feature.icon}
           </div>
 
           {/* Title */}
-          <h3 className="text-lg font-semibold text-white mb-3">
+          <h3 className="text-base font-mono uppercase tracking-wider text-[var(--text-primary)] mb-3">
             {feature.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-white/40 leading-relaxed">
+          <p className="text-xs font-mono text-[var(--text-tertiary)] leading-relaxed">
             {feature.description}
           </p>
 
-          {/* Bottom accent line */}
-          <div className="mt-6 h-px w-full bg-gradient-to-r from-brand-500/20 via-violet-500/20 to-transparent" />
+          {/* Bottom Accent line */}
+          <div className="mt-6 h-px w-full bg-[var(--border-color)] group-hover:bg-[var(--corner-color)] transition-colors duration-300" />
         </div>
       ))}
     </div>
@@ -38,36 +43,36 @@ const features = [
     icon: "⚡",
     title: "Instant Deployments",
     description:
-      "Push your code and watch it go live in seconds. Zero-config deployments with automatic builds, previews, and rollbacks.",
+      "Zero-config builds, automated edge provisioning, and instant rollbacks for Next.js & static apps.",
   },
   {
     icon: "🌐",
-    title: "Custom Domains",
+    title: "Custom Domain Routing",
     description:
-      "White-labeled domain routing with automatic DNS configuration. Your brand, your domains, no traces of the underlying infrastructure.",
+      "White-labeled DNS routing engine with automated SSL provisioning and CNAME record generation.",
   },
   {
     icon: "🔄",
-    title: "GitHub Sync",
+    title: "GitHub Plumbing Sync",
     description:
-      "Automatic repository creation and code syncing. Every push triggers a fresh deployment through our CI/CD pipeline.",
+      "Git Data API integration that creates private repositories and pushes batch commits seamlessly.",
   },
   {
     icon: "🛡️",
-    title: "Multi-Provider",
+    title: "Multi-Provider Architecture",
     description:
-      "Adapter-based hosting architecture. Deploy to Vercel for speed or your own VPS for control — switch anytime.",
+      "Provider-agnostic HostingAdapter pattern allowing seamless switching between Vercel and VPS Webhooks.",
   },
   {
     icon: "📊",
-    title: "Real-time Monitoring",
+    title: "Real-Time Telemetry",
     description:
-      "Live deployment status, build logs, and performance metrics. Know the state of every project at a glance.",
+      "Live status indicator dots, deployment logs, and infrastructure monitoring across edge nodes.",
   },
   {
     icon: "🏷️",
-    title: "White-Label Ready",
+    title: "White-Label System",
     description:
-      "Fully brandable platform. Custom logos, domains, and color schemes — make it yours from day one.",
+      "Fully brandable PaaS dashboard architecture with customizable design systems and DNS masks.",
   },
 ];

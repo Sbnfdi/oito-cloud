@@ -3,175 +3,158 @@
 import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { MeshTransmissionMaterial } from "@react-three/drei";
 
 export default function ServerNode({ morphProgress = 0 }: { morphProgress?: number }) {
   const groupRef = useRef<THREE.Group>(null!);
-  const wireframeRef = useRef<THREE.Mesh>(null!);
+  const glassRef = useRef<THREE.Mesh>(null!);
   const innerRef = useRef<THREE.Mesh>(null!);
-  const glowRef = useRef<THREE.Mesh>(null!);
-  const ringsRef = useRef<THREE.Group>(null!);
+  const gridRef = useRef<THREE.Group>(null!);
   const { pointer } = useThree();
 
-  // Smooth mouse tracking
-  const smoothMouse = useRef({ x: 0, y: 0 });
+  // Smooth mouse inertia & physics
+  const smoothMouse = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-  // Create ring geometries
-  const ringCount = 3;
-  const rings = useMemo(() => {
-    return Array.from({ length: ringCount }, (_, i) => ({
-      radius: 1.6 + i * 0.4,
-      rotationSpeed: 0.3 + i * 0.15,
-      tilt: (Math.PI / 6) * (i + 1),
-    }));
+  // Geometry attributes for architectural wireframe sphere
+  const { positions, linePositions } = useMemo(() => {
+    const count = 120;
+    const pos = new Float32Array(count * 3);
+    const lines: number[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const u = Math.random();
+      const v = Math.random();
+      const theta = u * 2.0 * Math.PI;
+      const phi = Math.acos(2.0 * v - 1.0);
+      const r = 1.35 + Math.random() * 0.25;
+
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      pos[i * 3] = x;
+      pos[i * 3 + 1] = y;
+      pos[i * 3 + 2] = z;
+
+      // Connect nearby points to build grid web
+      if (i > 0 && i % 3 === 0) {
+        lines.push(pos[(i - 1) * 3], pos[(i - 1) * 3 + 1], pos[(i - 1) * 3 + 2]);
+        lines.push(x, y, z);
+      }
+    }
+
+    return {
+      positions: pos,
+      linePositions: new Float32Array(lines),
+    };
   }, []);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    // Smooth mouse interpolation for parallax
-    smoothMouse.current.x += (pointer.x * 0.3 - smoothMouse.current.x) * 2 * delta;
-    smoothMouse.current.y += (pointer.y * 0.2 - smoothMouse.current.y) * 2 * delta;
+    // Smooth mouse inertia (vanlent.dev fluid interaction)
+    smoothMouse.current.targetX = pointer.x * 0.6;
+    smoothMouse.current.targetY = pointer.y * 0.4;
 
-    // Apply parallax rotation
-    groupRef.current.rotation.y = smoothMouse.current.x + state.clock.elapsedTime * 0.15;
-    groupRef.current.rotation.x = smoothMouse.current.y + Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+    smoothMouse.current.x += (smoothMouse.current.targetX - smoothMouse.current.x) * 3.5 * delta;
+    smoothMouse.current.y += (smoothMouse.current.targetY - smoothMouse.current.y) * 3.5 * delta;
 
-    // Pulsing inner sphere
+    // Floating parallax rotation
+    groupRef.current.rotation.y = smoothMouse.current.x + state.clock.elapsedTime * 0.2;
+    groupRef.current.rotation.x = -smoothMouse.current.y + Math.sin(state.clock.elapsedTime * 0.6) * 0.08;
+
+    // Pulse inner core
     if (innerRef.current) {
-      const pulse = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
-      innerRef.current.scale.setScalar(pulse);
+      const s = 0.65 + Math.sin(state.clock.elapsedTime * 2.2) * 0.05;
+      innerRef.current.scale.setScalar(s);
     }
 
-    // Rotate rings
-    if (ringsRef.current) {
-      ringsRef.current.children.forEach((ring, i) => {
-        ring.rotation.z += delta * rings[i].rotationSpeed;
-        ring.rotation.x += delta * 0.1;
-      });
+    // Rotate outer grid structure
+    if (gridRef.current) {
+      gridRef.current.rotation.z = state.clock.elapsedTime * 0.1;
     }
 
-    // Wireframe slow rotation
-    if (wireframeRef.current) {
-      wireframeRef.current.rotation.y += delta * 0.08;
-      wireframeRef.current.rotation.z += delta * 0.05;
-    }
-
-    // Scale down as morph progresses
-    const scale = 1 - morphProgress * 0.3;
-    groupRef.current.scale.setScalar(scale);
+    // Scale down node when scroll morph progresses
+    const scale = 1 - morphProgress * 0.35;
+    groupRef.current.scale.setScalar(Math.max(0.01, scale));
   });
 
   return (
     <group ref={groupRef}>
-      {/* Core icosahedron wireframe */}
-      <mesh ref={wireframeRef}>
-        <icosahedronGeometry args={[1.2, 1]} />
-        <meshBasicMaterial
+      {/* Central Architectural Glass Sphere */}
+      <mesh ref={glassRef} scale={1.1}>
+        <sphereGeometry args={[1, 64, 64]} />
+        <MeshTransmissionMaterial
+          backside
+          samples={16}
+          resolution={512}
+          transmission={0.92}
+          roughness={0.15}
+          ior={1.33}
+          chromaticAberration={0.08}
+          anisotropy={0.1}
+          distortion={0.3}
+          distortionScale={0.4}
+          temporalDistortion={0.1}
           color="#06b6d4"
-          wireframe
-          transparent
-          opacity={0.4}
         />
       </mesh>
 
-      {/* Inner glowing sphere */}
+      {/* Inner Glowing Core */}
       <mesh ref={innerRef}>
-        <sphereGeometry args={[0.6, 32, 32]} />
+        <icosahedronGeometry args={[0.5, 2]} />
         <meshStandardMaterial
-          color="#06b6d4"
+          color="#8b5cf6"
           emissive="#06b6d4"
-          emissiveIntensity={0.8}
-          transparent
-          opacity={0.3}
-          roughness={0.2}
-          metalness={0.8}
+          emissiveIntensity={1.2}
+          roughness={0.1}
+          metalness={0.9}
+          wireframe
         />
       </mesh>
 
-      {/* Outer glow shell */}
-      <mesh ref={glowRef} scale={1.8}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial
-          color="#06b6d4"
-          transparent
-          opacity={0.02}
-          side={THREE.BackSide}
-        />
-      </mesh>
-
-      {/* Orbital rings */}
-      <group ref={ringsRef}>
-        {rings.map((ring, i) => (
-          <mesh key={i} rotation={[ring.tilt, 0, i * 0.5]}>
-            <torusGeometry args={[ring.radius, 0.008, 8, 100]} />
-            <meshBasicMaterial
-              color={i === 0 ? "#06b6d4" : i === 1 ? "#8b5cf6" : "#22d3ee"}
-              transparent
-              opacity={0.3 - i * 0.05}
+      {/* Outer Wireframe Grid Structure */}
+      <group ref={gridRef}>
+        <points>
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              args={[positions, 3]}
             />
-          </mesh>
-        ))}
+          </bufferGeometry>
+          <pointsMaterial
+            size={0.035}
+            color="#22d3ee"
+            transparent
+            opacity={0.8}
+            sizeAttenuation
+          />
+        </points>
+
+        <lineSegments>
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              args={[linePositions, 3]}
+            />
+          </bufferGeometry>
+          <lineBasicMaterial
+            color="#06b6d4"
+            transparent
+            opacity={0.25}
+          />
+        </lineSegments>
+
+        {/* Concentric Architectural Rings */}
+        <mesh rotation={[Math.PI / 3, 0, 0]}>
+          <torusGeometry args={[1.7, 0.005, 16, 120]} />
+          <meshBasicMaterial color="#22d3ee" transparent opacity={0.4} />
+        </mesh>
+        <mesh rotation={[-Math.PI / 4, Math.PI / 6, 0]}>
+          <torusGeometry args={[2.0, 0.004, 16, 120]} />
+          <meshBasicMaterial color="#8b5cf6" transparent opacity={0.3} />
+        </mesh>
       </group>
-
-      {/* Floating data points */}
-      <DataPoints />
     </group>
-  );
-}
-
-function DataPoints() {
-  const pointsRef = useRef<THREE.Points>(null!);
-
-  const { positions, colors } = useMemo(() => {
-    const count = 80;
-    const pos = new Float32Array(count * 3);
-    const col = new Float32Array(count * 3);
-    const cyan = new THREE.Color("#06b6d4");
-    const violet = new THREE.Color("#8b5cf6");
-
-    for (let i = 0; i < count; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = 1.3 + Math.random() * 0.8;
-
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
-
-      const color = Math.random() > 0.5 ? cyan : violet;
-      col[i * 3] = color.r;
-      col[i * 3 + 1] = color.g;
-      col[i * 3 + 2] = color.b;
-    }
-
-    return { positions: pos, colors: col };
-  }, []);
-
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-    }
-  });
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          args={[colors, 3]}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.03}
-        vertexColors
-        transparent
-        opacity={0.8}
-        sizeAttenuation
-      />
-    </points>
   );
 }
