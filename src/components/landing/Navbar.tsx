@@ -44,22 +44,30 @@ export default function Navbar() {
         {/* Right: Nav Items & AM/PM Theme Switch */}
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-6">
-            <a
-              href="#features"
+            <Link
+              href="/features"
               data-nav-item
               className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
               style={{ opacity: 0 }}
             >
               Features
-            </a>
-            <a
-              href="#how-it-works"
+            </Link>
+            <Link
+              href="/pricing"
               data-nav-item
               className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
               style={{ opacity: 0 }}
             >
-              Architecture
-            </a>
+              Pricing
+            </Link>
+            <Link
+              href="/docs"
+              data-nav-item
+              className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase tracking-wider"
+              style={{ opacity: 0 }}
+            >
+              Docs
+            </Link>
             <Link
               href="/dashboard"
               data-nav-item
@@ -74,7 +82,7 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             data-nav-item
-            className="corner-box px-3 py-1 bg-white/5 border border-[var(--border-color)] text-xs font-mono text-[var(--text-primary)] hover:border-[var(--corner-color)] transition-all flex items-center gap-1.5"
+            className="corner-box px-3 py-1 bg-white/5 border border-[var(--border-color)] text-xs font-mono text-[var(--text-primary)] hover:border-[var(--corner-color)] transition-all flex items-center gap-1.5 cursor-pointer"
             style={{ opacity: 0 }}
             aria-label="Toggle AM/PM theme"
           >
