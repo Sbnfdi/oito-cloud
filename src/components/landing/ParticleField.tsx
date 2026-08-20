@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const PARTICLE_COUNT = 2000;
+const PARTICLE_COUNT = 1000;
 
 // Vertex shader: morphs between server shape and distributed network
 const vertexShader = `
@@ -21,22 +21,21 @@ const vertexShader = `
     // Morph between source and target
     vec3 pos = mix(position, aTarget, uProgress);
 
-    // Add some organic motion
-    float noise = sin(pos.x * 3.0 + uTime) * cos(pos.y * 2.0 + uTime * 0.7) * 0.1;
+    // Organic noise displacement
+    float noise = sin(pos.x * 2.5 + uTime) * cos(pos.y * 1.8 + uTime * 0.7) * 0.08;
     pos += normalize(pos) * noise * uProgress;
 
-    // Scale based on morph progress
-    pos *= 1.0 + uProgress * 0.5;
+    // Scale with morph
+    pos *= 1.0 + uProgress * 0.4;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
 
     // Size attenuation
-    float size = mix(2.0, 1.5, uProgress);
-    gl_PointSize = size * (300.0 / -mvPosition.z);
+    float size = mix(1.8, 1.2, uProgress);
+    gl_PointSize = size * (250.0 / -mvPosition.z);
 
-    // Alpha varies with distance from center and randomness
-    vAlpha = mix(0.8, 0.4 + aRandom * 0.4, uProgress);
+    vAlpha = mix(0.8, 0.35 + aRandom * 0.35, uProgress);
   }
 `;
 
@@ -49,15 +48,11 @@ const fragmentShader = `
   varying float vRandom;
 
   void main() {
-    // Circular particle shape
     vec2 center = gl_PointCoord - 0.5;
     float dist = length(center);
     if (dist > 0.5) discard;
 
-    // Soft glow falloff
     float alpha = smoothstep(0.5, 0.0, dist) * vAlpha;
-
-    // Mix colors based on progress and randomness
     vec3 color = mix(uColor1, uColor2, vRandom * 0.5 + uProgress * 0.5);
 
     gl_FragColor = vec4(color, alpha);
@@ -74,7 +69,6 @@ export default function ParticleField({ progress = 0 }: { progress?: number }) {
     const rnd = new Float32Array(PARTICLE_COUNT);
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      // Source: concentrated server node shape (sphere surface)
       const theta1 = Math.random() * Math.PI * 2;
       const phi1 = Math.acos(2 * Math.random() - 1);
       const r1 = 0.8 + Math.random() * 0.5;
@@ -83,7 +77,6 @@ export default function ParticleField({ progress = 0 }: { progress?: number }) {
       src[i * 3 + 1] = r1 * Math.sin(phi1) * Math.sin(theta1);
       src[i * 3 + 2] = r1 * Math.cos(phi1);
 
-      // Target: distributed network (larger spread with clusters)
       const cluster = Math.floor(Math.random() * 8);
       const clusterAngle = (cluster / 8) * Math.PI * 2;
       const clusterDist = 2 + Math.random() * 2;

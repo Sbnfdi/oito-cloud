@@ -27,29 +27,20 @@ export default function HeroCanvas() {
     >
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{
           antialias: true,
           alpha: true,
           powerPreference: "high-performance",
+          stencil: false,
+          depth: true,
         }}
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          {/* Ambient light for base illumination */}
-          <ambientLight intensity={0.2} />
-
-          {/* Point light for dramatic highlights */}
-          <pointLight
-            position={[5, 5, 5]}
-            intensity={0.5}
-            color="#06b6d4"
-          />
-          <pointLight
-            position={[-5, -3, 3]}
-            intensity={0.3}
-            color="#8b5cf6"
-          />
+          <ambientLight intensity={0.4} />
+          <pointLight position={[5, 5, 5]} intensity={0.8} color="#06b6d4" />
+          <pointLight position={[-5, -3, 3]} intensity={0.5} color="#8b5cf6" />
 
           {/* Server node (visible before morph) */}
           <group visible={morphProgress < 0.95}>

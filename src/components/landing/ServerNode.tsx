@@ -3,7 +3,6 @@
 import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { MeshTransmissionMaterial } from "@react-three/drei";
 
 export default function ServerNode({ morphProgress = 0 }: { morphProgress?: number }) {
   const groupRef = useRef<THREE.Group>(null!);
@@ -17,7 +16,7 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
 
   // Geometry attributes for architectural wireframe sphere
   const { positions, linePositions } = useMemo(() => {
-    const count = 120;
+    const count = 90;
     const pos = new Float32Array(count * 3);
     const lines: number[] = [];
 
@@ -36,7 +35,6 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
       pos[i * 3 + 1] = y;
       pos[i * 3 + 2] = z;
 
-      // Connect nearby points to build grid web
       if (i > 0 && i % 3 === 0) {
         lines.push(pos[(i - 1) * 3], pos[(i - 1) * 3 + 1], pos[(i - 1) * 3 + 2]);
         lines.push(x, y, z);
@@ -52,9 +50,9 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    // Smooth mouse inertia (vanlent.dev fluid interaction)
-    smoothMouse.current.targetX = pointer.x * 0.6;
-    smoothMouse.current.targetY = pointer.y * 0.4;
+    // Smooth mouse inertia
+    smoothMouse.current.targetX = pointer.x * 0.5;
+    smoothMouse.current.targetY = pointer.y * 0.3;
 
     smoothMouse.current.x += (smoothMouse.current.targetX - smoothMouse.current.x) * 3.5 * delta;
     smoothMouse.current.y += (smoothMouse.current.targetY - smoothMouse.current.y) * 3.5 * delta;
@@ -81,28 +79,26 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
 
   return (
     <group ref={groupRef}>
-      {/* Central Architectural Glass Sphere */}
+      {/* Central Hardware-Accelerated Glass Sphere */}
       <mesh ref={glassRef} scale={1.1}>
-        <sphereGeometry args={[1, 64, 64]} />
-        <MeshTransmissionMaterial
-          backside
-          samples={16}
-          resolution={512}
-          transmission={0.92}
-          roughness={0.15}
-          ior={1.33}
-          chromaticAberration={0.08}
-          anisotropy={0.1}
-          distortion={0.3}
-          distortionScale={0.4}
-          temporalDistortion={0.1}
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshPhysicalMaterial
           color="#06b6d4"
+          transmission={0.9}
+          roughness={0.15}
+          ior={1.25}
+          thickness={0.5}
+          transparent
+          opacity={0.85}
+          metalness={0.1}
+          clearcoat={1}
+          clearcoatRoughness={0.1}
         />
       </mesh>
 
       {/* Inner Glowing Core */}
       <mesh ref={innerRef}>
-        <icosahedronGeometry args={[0.5, 2]} />
+        <icosahedronGeometry args={[0.5, 1]} />
         <meshStandardMaterial
           color="#8b5cf6"
           emissive="#06b6d4"
@@ -123,7 +119,7 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
             />
           </bufferGeometry>
           <pointsMaterial
-            size={0.035}
+            size={0.03}
             color="#22d3ee"
             transparent
             opacity={0.8}
@@ -147,11 +143,11 @@ export default function ServerNode({ morphProgress = 0 }: { morphProgress?: numb
 
         {/* Concentric Architectural Rings */}
         <mesh rotation={[Math.PI / 3, 0, 0]}>
-          <torusGeometry args={[1.7, 0.005, 16, 120]} />
+          <torusGeometry args={[1.7, 0.005, 12, 64]} />
           <meshBasicMaterial color="#22d3ee" transparent opacity={0.4} />
         </mesh>
         <mesh rotation={[-Math.PI / 4, Math.PI / 6, 0]}>
-          <torusGeometry args={[2.0, 0.004, 16, 120]} />
+          <torusGeometry args={[2.0, 0.004, 12, 64]} />
           <meshBasicMaterial color="#8b5cf6" transparent opacity={0.3} />
         </mesh>
       </group>
